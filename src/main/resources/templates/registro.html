@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container d-flex justify-content-center">
+    <div class="card">
+        <div class="card-header">
+            <ul class="nav nav-tabs">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">
+                        <i class="fas fa-user"></i> Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" th:href="@{/usuario/registro}">
+                        <i class="fas fa-user-plus"></i> Registro</a>
+                </li>
+
+            </ul>
+        </div>
+        <div class="card-body">
+            <form th:action="@{/usuario/registrar}" method="post" sec:authorize="!isAuthenticated()">
+                <!-- control ataque csrf -->
+                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                <!-- fin control ataque csrf -->
+                <div class="form-group">
+                    <label for="nombreUsuario">Nombre de Usuario</label>
+                    <input type="text" class="form-control" id="nombreUsuario" name="nombreUsuario" required="required" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label for="password">Contraseña</label>
+                    <input type="password" class="form-control" id="password" name="password" required="required">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-outline-success btn-block">
+                        <i class="fas fa-user-plus"></i> Crear Cuenta</button>
+                </div>
+            </form>
+
+            <p sec:authorize="isAuthenticated()">Ya has iniciado sesión, lo que implica que ya tienes cuenta</p>
+
+            <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                <p th:text="${error}"></p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>

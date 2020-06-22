@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container">
+   <div class="row">
+       <div class="col-md-4 mx-auto">
+           <h5 class="mb-4">Nuevo Producto</h5>
+           <form th:action="@{/producto/guardar}" method="post">
+               <div class="form-group">
+                   <!-- control ataque csrf -->
+                   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                   <!-- fin control ataque csrf -->
+                   <label for="nombre">Nombre del Producto</label>
+                   <input type="text" class="form-control" id="nombre" name="nombre" required="required" autocomplete="off">
+               </div>
+               <div class="form-group">
+                   <label for="precio">Precio del Producto (en Euros)</label>
+                   <input type="number" class="form-control" id="precio" name="precio" required="required" autocomplete="off">
+               </div>
+               <div class="form-group">
+                   <button type="submit" class="btn btn-outline-success btn-block">
+                       <i class="far fa-save"></i> Guardar</button>
+               </div>
+           </form>
+           <a th:href="@{/producto/lista}" style="text-decoration: none;"><button class="btn btn-outline-info btn-block">
+               <i class="fas fa-arrow-circle-left"></i> Volver</button></a>
+
+           <div th:if="${error}" class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+               <p th:text="${error}"></p>
+               <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                   <span aria-hidden="true">&times;</span>
+               </button>
+           </div>
+       </div>
+   </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>

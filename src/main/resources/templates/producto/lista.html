@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container">
+    <table class="table table-dark text-center">
+        <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Precio (euros)</th>
+            <th scope="col">Ver</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Editar</th>
+            <th scope="col" sec:authorize="hasRole('ROLE_ADMIN')">Eliminar</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="producto: ${productos}">
+            <td th:text="${producto.nombre}"></td>
+            <td th:text="${producto.precio}"></td>
+            <td><a th:href="@{'/producto/detalle/' + ${producto.id}}"><button class="btn btn-outline-primary"><i class="far fa-eye"></i></button></a></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'/producto/editar/' + ${producto.id}}"><button class="btn btn-outline-warning"><i class="far fa-edit"></i></button></a></td>
+            <td sec:authorize="hasRole('ROLE_ADMIN')"><a th:href="@{'/producto/borrar/' + ${producto.id}}"><button class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button></a></td>
+        </tr>
+
+        </tbody>
+    </table>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{/producto/nuevo}">
+        <button class="btn btn-outline-success btn-lg">
+            <i class="fas fa-plus-circle"></i> Nuevo Producto</button></a>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>

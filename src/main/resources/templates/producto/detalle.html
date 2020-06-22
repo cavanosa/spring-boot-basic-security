@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org"
+       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:insert="fragments :: headerfiles">
+</head>
+<body>
+<header th:insert="fragments :: nav"></header>
+
+<div class="container">
+    <div class="card">
+        <div class="card-header text-center">
+            Detalles del Producto
+        </div>
+        <div class="card-body">
+            <h5 class="card-title" th:text="'Nombre: ' + ${producto.nombre}"></h5>
+            <p class="card-text" th:text="'Precio: ' + ${producto.precio} + '€'"></p>
+            <p class="text-justify"><b>Descripción: </b>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <a th:href="@{/producto/lista}" class="btn btn-outline-info">
+                <i class="fas fa-arrow-circle-left"></i> Volver
+            </a>
+        </div>
+    </div>
+</div>
+
+<footer th:insert="fragments :: footer"></footer>
+<div th:insert="fragments :: scripts"></div>
+</body>
+</html>
